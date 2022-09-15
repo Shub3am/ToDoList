@@ -30,3 +30,19 @@
 .Task-Form input::placeholder {
   color: white;
 }
+.Task button {
+  margin: 0.25em;
+  border-radius: 0.5em;
+  background: black;
+  font-size: 15px;
+  color: white;
+  transition: 0.25s;
+}
+.Task button:hover {
+  scale: 1.25;
+  color: black;
+  background: white;
+}
+.MarkTask {
+  text-decoration: line-through;
+}

@@ -1,14 +1,15 @@
 import React from "react";
 import "./Task.css";
-const List = ({ tasks }) => {
+const List = ({ tasks, RemoveTask, IsDone, MarkToggle }) => {
   const val = tasks.map((task, index) => {
     return (
       <div className="Task" key={index}>
-        <h1>
+        <h1 className={IsDone ? "MarkTask" : null}>
           {task}
           {index}
         </h1>
-        <button>Remove</button>
+        <button onClick={() => MarkToggle(index)}> Mark</button>
+        <button onClick={() => RemoveTask(index)}>Remove</button>
       </div>
     );
   });

@@ -4,7 +4,7 @@ import List from "./todolist/TaskList";
 class App extends Component {
   constructor() {
     super();
-    this.state = { list: [], currentInputTask: "" };
+    this.state = { list: [], EditIndex: "", isDone: false };
   }
   addTaskInput = (task) => {
     this.setState({ currentInputTask: task.target.value });
@@ -15,12 +15,25 @@ class App extends Component {
       list: [...this.state.list, this.state.currentInputTask],
     });
   };
-  addTaskKeyboard = (evt) => {
-    if (evt.key == "Enter") {
+  addTaskKeyboard = (task) => {
+    if (task.key == "Enter") {
       this.setState({
         list: [...this.state.list, this.state.currentInputTask],
       });
     }
+  };
+  RemoveTask = (task) => {
+    const LocalList = this.state.list.filter((x, index) => {
+      return index !== task;
+    });
+    this.setState({ list: LocalList });
+  };
+  MarkToggle = (check) => {
+    !this.state.isDone
+      ? this.setState({ isDone: true }, () => {
+          console.log(check);
+        })
+      : this.setState({ isDone: false }, () => console.log(check));
   };
   render() {
     return (
@@ -40,7 +53,13 @@ class App extends Component {
           <input onClick={this.addTask} type="button" value="Submit" />
         </div>
         <div>
-          <List tasks={this.state.list} />
+          <List
+            tasks={this.state.list}
+            EditTask={this.EditTask}
+            RemoveTask={this.RemoveTask}
+            IsDone={this.state.isDone}
+            MarkToggle={this.MarkToggle}
+          />
         </div>
       </div>
     );
