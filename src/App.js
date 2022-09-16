@@ -28,12 +28,13 @@ class App extends Component {
     });
     this.setState({ list: LocalList });
   };
-  MarkToggle = (check) => {
+  MarkToggle = (index) => {
+    this.setState({ EditIndex: index });
     !this.state.isDone
       ? this.setState({ isDone: true }, () => {
-          console.log(check);
+          console.log(index);
         })
-      : this.setState({ isDone: false }, () => console.log(check));
+      : this.setState({ isDone: false }, () => console.log(index));
   };
   render() {
     return (
@@ -59,6 +60,7 @@ class App extends Component {
             RemoveTask={this.RemoveTask}
             IsDone={this.state.isDone}
             MarkToggle={this.MarkToggle}
+            EditIndex={this.state.EditIndex}
           />
         </div>
       </div>
