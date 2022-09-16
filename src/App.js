@@ -9,7 +9,8 @@ class App extends Component {
       EditIndex: "",
       isDone: false,
       EditMode: false,
-      EditModeIndex: false,
+      EditModeIndex: "",
+      EditorInput: "",
     };
   }
   addTaskInput = (task) => {
@@ -17,9 +18,13 @@ class App extends Component {
   };
 
   addTask = () => {
-    this.setState({
-      list: [...this.state.list, this.state.currentInputTask],
-    });
+    if (this.state.list.includes(this.state.currentInputTask.toLowerCase())) {
+      alert("Already Added");
+    } else {
+      this.setState({
+        list: [...this.state.list, this.state.currentInputTask],
+      });
+    }
   };
   addTaskKeyboard = (task) => {
     if (task.key == "Enter") {
@@ -36,7 +41,7 @@ class App extends Component {
   };
   MarkToggle = (index) => {
     this.setState({ EditIndex: index });
-    !this.state.isDone
+    this.state.isDone == false
       ? this.setState({ isDone: true }, () => {
           console.log(index);
         })
@@ -47,6 +52,17 @@ class App extends Component {
     !this.state.EditMode
       ? this.setState({ EditMode: true })
       : this.setState({ EditMode: false });
+  };
+  Editor = (evt) => {
+    this.setState({ EditorInput: evt.target.value });
+  };
+  Edit = (index) => {
+    const LocalList = this.state.list;
+    LocalList[index] = this.state.EditorInput;
+    this.setState({ list: LocalList }, () => {
+      console.log("Done");
+    });
+    this.setState({ EditMode: false });
   };
   render() {
     return (
@@ -75,6 +91,8 @@ class App extends Component {
             EditIndex={this.state.EditIndex}
             EditModeIndex={this.state.EditModeIndex}
             EditMode={this.state.EditMode}
+            Editor={this.Editor}
+            Edit={this.Edit}
           />
         </div>
       </div>
