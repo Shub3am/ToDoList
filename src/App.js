@@ -4,7 +4,13 @@ import List from "./todolist/TaskList";
 class App extends Component {
   constructor() {
     super();
-    this.state = { list: [], EditIndex: "", isDone: false };
+    this.state = {
+      list: [],
+      EditIndex: "",
+      isDone: false,
+      EditMode: false,
+      EditModeIndex: false,
+    };
   }
   addTaskInput = (task) => {
     this.setState({ currentInputTask: task.target.value });
@@ -36,6 +42,12 @@ class App extends Component {
         })
       : this.setState({ isDone: false }, () => console.log(index));
   };
+  EditTask = (index) => {
+    this.setState({ EditModeIndex: index });
+    !this.state.EditMode
+      ? this.setState({ EditMode: true })
+      : this.setState({ EditMode: false });
+  };
   render() {
     return (
       <div>
@@ -61,6 +73,8 @@ class App extends Component {
             IsDone={this.state.isDone}
             MarkToggle={this.MarkToggle}
             EditIndex={this.state.EditIndex}
+            EditModeIndex={this.state.EditModeIndex}
+            EditMode={this.state.EditMode}
           />
         </div>
       </div>
